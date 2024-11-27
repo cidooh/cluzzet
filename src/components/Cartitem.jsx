@@ -28,7 +28,8 @@ function Cartitem(props) {
           <button>-</button>
         </div>
         <div className="text-3xl w-10 h-10 border-[#928E8E] border-2 text-center">
-          <p>1</p>
+          <p> {props.cartCopy && props.cartCopy.filter(item => item.name === props.name).length}
+          </p>
         </div>
         <div className="text-3xl w-10 h-10 border-[#928E8E] border-2 text-center">
           <button
