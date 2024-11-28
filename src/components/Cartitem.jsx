@@ -1,9 +1,15 @@
 function Cartitem(props) {
   function handleCartItems(action, product) {
     if (action === "increment") {
-
       const copy = [...props.cartCopy];
       copy.push(product);
+      props.setCartCopy(copy);
+    }
+
+    if (action === "decrement") {
+      const copy = [...props.cartCopy];
+      const productIndex = copy.indexOf(product);
+      copy.splice(productIndex, 1);
       props.setCartCopy(copy);
     }
   }
@@ -25,10 +31,26 @@ function Cartitem(props) {
       </div>
       <div className="flex gap--1 items-center">
         <div className="text-3xl w-10 h-10 border-[#928E8E] border-2 text-center">
-          <button>-</button>
+          <button
+            onClick={() =>
+              handleCartItems("decrement", {
+                name: props.name,
+                size: props.size,
+                img: props.img,
+                price:props.price,
+              } )
+            }
+            disabled={props.cartCopy.filter(item=>item.name === props.name).length === 1}
+            
+          >
+            -
+          </button>
         </div>
         <div className="text-3xl w-10 h-10 border-[#928E8E] border-2 text-center">
-          <p> {props.cartCopy && props.cartCopy.filter(item => item.name === props.name).length}
+          <p>
+            {" "}
+            {props.cartCopy &&
+              props.cartCopy.filter((item) => item.name === props.name).length}
           </p>
         </div>
         <div className="text-3xl w-10 h-10 border-[#928E8E] border-2 text-center">
@@ -41,6 +63,7 @@ function Cartitem(props) {
                 name: props.name,
               })
             }
+            
           >
             +
           </button>
@@ -48,7 +71,14 @@ function Cartitem(props) {
       </div>
 
       <div className="text-2xl font-bold mt-16">
-        <p>Ksh. {props.price}</p>
+        <p>
+          Ksh.{" "}
+          {props.cartCopy &&
+            props.cartCopy
+              .filter((item) => item.name === props.name)
+              .reduce((acc, curr) => acc + curr.price, 0)
+              .toLocaleString()}{" "}
+        </p>
       </div>
       <div>
         <hr />
