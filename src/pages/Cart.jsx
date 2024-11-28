@@ -11,7 +11,7 @@ function Cart({ cart, setCart }) {
   useEffect(() => {
     const copy = [...cart];
     setCartCopy(copy);
-  }, []);
+  }, [cart]);
   return (
     <div className="flex justify-between">
       <div>

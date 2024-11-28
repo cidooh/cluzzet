@@ -20,6 +20,11 @@ function Router() {
     
   },[cart])
 
+  useEffect(()=>{
+    const cartData=JSON.parse(localStorage.getItem("cart"))
+  cartData && setCart(cartData)
+  },[])
+
   console.log(cart)
 
 
