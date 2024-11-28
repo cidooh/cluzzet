@@ -8,15 +8,25 @@ import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import {useState} from "react"
+import { useEffect } from "react";
+
 
 function Router() {
-
   const [cart,setCart] = useState([])
+
+
+  useEffect (()=> {
+   cart.length !==0 && localStorage.setItem("cart",JSON.stringify(cart))
+    
+  },[cart])
+
   console.log(cart)
 
 
   return (
+    
   <BrowserRouter>
+  
 
   <Routes>
 
@@ -27,11 +37,11 @@ function Router() {
     <Route path="/signup" element={<Layout> <Signup/> </Layout>}/>
     <Route path="/login" element={<Layout> <Login/> </Layout>}/>
     <Route path="*" element={<Layout> <Notfound/> </Layout>}/>
-    
 
     </Routes>
-    
+      
     </BrowserRouter>
+    
   )
 }
 

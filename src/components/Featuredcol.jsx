@@ -21,6 +21,7 @@ function Featuredcol(props) {
         <div className=" font-bold text-white rounded-md absolute inset-1  opacity-0 hover:opacity-100 ml-[180px] ">
           <button
             className="mt-[500px] bg-[#45C9A1] py-[20px] px-[30px] rounded-md "
+            style={{background:props.cart.find(item=>item.name === props.name)?"#45C9A1" : "black"}}
             onClick={(e) =>
               handleAddToCart(e, {
                 price: props.price,
@@ -29,7 +30,9 @@ function Featuredcol(props) {
               })
             }
           >
-            ADD TO CART
+            {props.cart.find(item=>item.name === props.name)?"Added to cart" : "Add to Cart"  }
+            
+            
           </button>
         </div>
       </div>
