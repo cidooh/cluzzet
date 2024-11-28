@@ -1,7 +1,9 @@
+import Signupimage from "../components/Signupimage"
+
 function Signup(){
     return(
         <>
-        <p>Signup page</p>
+       <Signupimage/>
         </>
     )
 }

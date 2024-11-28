@@ -8,11 +8,17 @@ function Cartitem(props) {
 
     if (action === "decrement") {
       const copy = [...props.cartCopy];
-      const productIndex = copy.indexOf(product);
+      let productIndex;
+      copy.find((item, index) => {
+        if (item.name === props.name) {
+          productIndex = index;
+        }
+      });
       copy.splice(productIndex, 1);
       props.setCartCopy(copy);
     }
   }
+
   return (
     <div className="flex gap-32 p-9 border-[#928E8E] border-2 w-[950px] ml-16 ">
       <div className="flex">
@@ -37,11 +43,14 @@ function Cartitem(props) {
                 name: props.name,
                 size: props.size,
                 img: props.img,
-                price:props.price,
-              } )
+                price: props.price,
+              })
             }
-            disabled={props.cartCopy.filter(item=>item.name === props.name).length === 1}
-            
+            disabled={
+              props.cartCopy &&
+              props.cartCopy.filter((item) => item.name === props.name)
+                .length === 1
+            }
           >
             -
           </button>
@@ -63,7 +72,6 @@ function Cartitem(props) {
                 name: props.name,
               })
             }
-            
           >
             +
           </button>

@@ -32,6 +32,18 @@ function Logincontent() {
           Sign In
         </button>
       </div>
+      <div>OR</div>
+
+      <div className="p-5">
+        <button className=" text-blue-500 rounded-full w-[500px] p-9 text-3xl font-bold border-2">
+          Log In With Google
+        </button>
+      </div>
+
+      <div className="p-4">
+        Dont Have an Account Yet?
+        <span className="text-[#45C9A1]"> Sign Up Free</span>
+      </div>
     </div>
   );
 }

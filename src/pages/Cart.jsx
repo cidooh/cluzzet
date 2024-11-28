@@ -6,12 +6,28 @@ import { BsFillCartXFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 function Cart({ cart, setCart }) {
-  const [cartCopy, setCartCopy] = useState([]);
+  const [cartCopy, setCartCopy] = useState(null);
 
-  useEffect(() => {
-    const copy = [...cart];
-    setCartCopy(copy);
-  }, [cart]);
+
+  // Localstorage of cartCopy
+useEffect(()=>{
+const cartCopyItem = JSON.parse(localStorage.getItem("cartCopy"))
+const cartItem = JSON.parse(localStorage.getItem("cart"))
+if(cartCopyItem){
+  setCartCopy(cartCopyItem)
+}
+else{
+  setCartCopy(cartItem)
+}   
+},[])
+                                                                                      
+useEffect(()=> {
+ cartCopy && localStorage.setItem("cartCopy",JSON.stringify(cartCopy))
+            
+   },[cartCopy])                                                                                          
+ 
+
+
   return (
     <div className="flex justify-between">
       <div>
@@ -28,6 +44,7 @@ function Cart({ cart, setCart }) {
         ) : (
           <div className="flex justify-between">
             <div>
+
             <Namecart />
             {cart &&
               cart.map((item) => {
