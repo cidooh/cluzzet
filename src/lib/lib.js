@@ -1,6 +1,6 @@
 
-export function getFilteredArray(arr){
-    return arr && arr.filter(item => item.name === props.name)
+export function getFilteredArray(arr,prop){
+    return arr && arr.filter(item => item.name === prop)
     
     
 }

@@ -1,6 +1,7 @@
 import { FaRegTrashCan } from "react-icons/fa6";
+import { getFilteredArray } from "../lib/lib";
 
-function Cartitem(props, cart, setCart) {
+function Cartitem(props) {
   function handleCartItems(action, product) {
     if (action === "increment") {
       const copy = [...props.cartCopy];
@@ -15,22 +16,25 @@ function Cartitem(props, cart, setCart) {
         if (item.name === props.name) {
           productIndex = index;
         }
-           });
+      });
       copy.splice(productIndex, 1);
       props.setCartCopy(copy);
     }
 
-    console.log(cart);
-    
 
     if (action === "delete") {
-      const copy = cart && [...cart];
-      const filteredCart = copy.filter (item => {
-        return item.name !== props.name;     
-               
-      })}
-         console.log(filteredCart)
-         setCart(filteredCart)
+      const copy = props.cart && [...props.cart];
+      const filteredCart = copy.filter((item) => {
+        return item.name !== props.name;
+      });
+
+      if(filteredCart.length===0){
+        localStorage.removeItem("cart");
+        localStorage.removeItem("cartCopy")
+      }
+      props.setCart(filteredCart);
+    }
+    console.log(filteredCart);
   }
 
   return (
@@ -62,8 +66,7 @@ function Cartitem(props, cart, setCart) {
             }
             disabled={
               props.cartCopy &&
-              props.cartCopy.filter((item) => item.name === props.name)
-                .length === 1
+              getFilteredArray(props.cartCopy, props.name).length === 1
             }
           >
             -
@@ -73,7 +76,8 @@ function Cartitem(props, cart, setCart) {
           <p>
             {" "}
             {props.cartCopy &&
-              props.cartCopy.filter((item) => item.name === props.name).length}
+              props.cartCopy &&
+              getFilteredArray(props.cartCopy, props.name).length}
           </p>
         </div>
         <div className="text-3xl w-10 h-10 border-[#928E8E] border-2 text-center">
@@ -102,18 +106,20 @@ function Cartitem(props, cart, setCart) {
               .toLocaleString()}{" "}
         </p>
       </div>
-      <div><button
-        className="text-red-600 opacity-0 hover:opacity-100 mt-20 text-3xl"
-        onClick={() =>
-          handleCartItems("delete", {
-            name: props.name,
-            size: props.size,
-            img: props.img,
-            price: props.price,
-          })
-        }>
-      
-        <FaRegTrashCan /> </button>
+      <div>
+        <button
+          className="text-red-600 opacity-0 hover:opacity-100 mt-20 text-3xl"
+          onClick={() =>
+            handleCartItems("delete", {
+              name: props.name,
+              size: props.size,
+              img: props.img,
+              price: props.price,
+            })
+          }
+        >
+          <FaRegTrashCan />{" "}
+        </button>
       </div>
 
       <div>
