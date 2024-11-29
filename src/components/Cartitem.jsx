@@ -1,4 +1,6 @@
-function Cartitem(props) {
+import { FaRegTrashCan } from "react-icons/fa6";
+
+function Cartitem(props, cart, setCart) {
   function handleCartItems(action, product) {
     if (action === "increment") {
       const copy = [...props.cartCopy];
@@ -13,10 +15,22 @@ function Cartitem(props) {
         if (item.name === props.name) {
           productIndex = index;
         }
-      });
+           });
       copy.splice(productIndex, 1);
       props.setCartCopy(copy);
     }
+
+    console.log(cart);
+    
+
+    if (action === "delete") {
+      const copy = cart && [...cart];
+      const filteredCart = copy.filter (item => {
+        return item.name !== props.name;     
+               
+      })}
+         console.log(filteredCart)
+         setCart(filteredCart)
   }
 
   return (
@@ -66,10 +80,10 @@ function Cartitem(props) {
           <button
             onClick={() =>
               handleCartItems("increment", {
-                img: props.img,
-                size: props.size,
-                price: props.price,
                 name: props.name,
+                size: props.size,
+                img: props.img,
+                price: props.price,
               })
             }
           >
@@ -88,6 +102,20 @@ function Cartitem(props) {
               .toLocaleString()}{" "}
         </p>
       </div>
+      <div><button
+        className="text-red-600 opacity-0 hover:opacity-100 mt-20 text-3xl"
+        onClick={() =>
+          handleCartItems("delete", {
+            name: props.name,
+            size: props.size,
+            img: props.img,
+            price: props.price,
+          })
+        }>
+      
+        <FaRegTrashCan /> </button>
+      </div>
+
       <div>
         <hr />
       </div>

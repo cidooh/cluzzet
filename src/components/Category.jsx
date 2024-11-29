@@ -1,3 +1,6 @@
+
+
+
 function Category(props){
     return(
     
@@ -10,7 +13,12 @@ function Category(props){
             </div>
             <div>
            <p>{props.name}</p>
+
+           
            </div>
+
+           
+
              </div> 
                )
 }

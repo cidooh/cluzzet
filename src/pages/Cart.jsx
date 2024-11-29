@@ -56,6 +56,8 @@ useEffect(()=> {
                     price={item.price}
                     cartCopy={cartCopy}
                     setCartCopy={setCartCopy}
+                    setCart={setCart}
+                    cart={cart}
                   />
                 );
               })}
