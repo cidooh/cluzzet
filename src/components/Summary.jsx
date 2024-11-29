@@ -1,3 +1,5 @@
+import {totals} from "../lib/totals"
+
 function Summary({ cartCopy }) {
   return (
     <>
