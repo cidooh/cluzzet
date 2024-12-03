@@ -5,3 +5,14 @@ export function getFilteredArray(arr,prop){
     
     
 }
+
+export function getTotals(arr, prop) {
+    if (prop === undefined) {
+      return arr.reduce((acc, curr) => acc + curr.price);
+    } else {
+      return arr
+        .filter((item) => item.name === props.name)
+        .reduce((acc, curr) => acc + curr.price, 0);
+    }
+  }
+  

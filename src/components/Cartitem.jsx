@@ -1,5 +1,7 @@
 import { FaRegTrashCan } from "react-icons/fa6";
 import { getFilteredArray } from "../lib/lib";
+import { getTotals } from "../lib/lib";
+
 
 function Cartitem(props) {
   function handleCartItems(action, product) {
@@ -21,16 +23,15 @@ function Cartitem(props) {
       props.setCartCopy(copy);
     }
 
-
     if (action === "delete") {
       const copy = props.cart && [...props.cart];
       const filteredCart = copy.filter((item) => {
         return item.name !== props.name;
       });
 
-      if(filteredCart.length===0){
+      if (filteredCart.length === 0) {
         localStorage.removeItem("cart");
-        localStorage.removeItem("cartCopy")
+        localStorage.removeItem("cartCopy");
       }
       props.setCart(filteredCart);
     }
@@ -98,12 +99,9 @@ function Cartitem(props) {
 
       <div className="text-2xl font-bold mt-16">
         <p>
-          Ksh.{" "}
+          Ksh.{" "}  
           {props.cartCopy &&
-            props.cartCopy
-              .filter((item) => item.name === props.name)
-              .reduce((acc, curr) => acc + curr.price, 0)
-              .toLocaleString()}{" "}
+            getTotals(cartCopy, name).toLocaleString()}
         </p>
       </div>
       <div>

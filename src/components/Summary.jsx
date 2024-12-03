@@ -1,4 +1,4 @@
-import {totals} from "../lib/totals"
+import { getTotals } from "../lib/lib";
 
 function Summary({ cartCopy }) {
   return (
