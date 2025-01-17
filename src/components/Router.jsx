@@ -9,6 +9,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import { useState } from "react";
 import { useEffect } from "react";
+import Addnewproduct from "../pages/Addnewproduct";
 
 function Router() {
   const [cart, setCart] = useState([]);
@@ -90,6 +91,8 @@ function Router() {
             </Layout>
           }
         />
+
+        <Route path="/addnewproduct" element={<Layout><Addnewproduct/></Layout>}/>
       </Routes>
     </BrowserRouter>
   );

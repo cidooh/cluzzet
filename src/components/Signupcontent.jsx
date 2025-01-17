@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../firebase";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 
 import { ImCross } from "react-icons/im";
 import { IoCheckmarkSharp } from "react-icons/io5";
@@ -11,12 +12,9 @@ function Signupcontent() {
   const [formData, setFormData] = useState({});
 
   const [error, setError] = useState({});
+  const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
-
-  // const goToLogin = ()=>{
-  //   navigate('/login')
-  // }
 
   function handleChange(e) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -49,6 +47,8 @@ function Signupcontent() {
     console.log(errors);
     
     if(!errors.firstName && !errors.lastName && !errors.Password && !errors.email && !errors.confirmPassword && !errors.phoneNumber){
+
+setIsLoading(true)
         
       createUserWithEmailAndPassword(auth, formData.email, formData.Password)
         .then((userCredential) => {
@@ -56,6 +56,7 @@ function Signupcontent() {
           const user = userCredential.user;
           if (user){
 navigate("/login")
+setIsLoading(false)
           }
           console.log(user);
           
@@ -73,7 +74,7 @@ navigate("/login")
 
 
   return (
-    <div>
+    <div className="relative">
       <div>
         <h2 className="font-bold text-5xl p-10 text-center">
           Create An Account
@@ -173,6 +174,7 @@ navigate("/login")
             Sign Up with Google
           </button>
         </div>
+        {isLoading && <Loader/>}
       </div>
     </div>
   );

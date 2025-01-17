@@ -3,7 +3,7 @@ import Logincontent from "./Logincontent"
 
 function Loginhero(){
     return(
-        <div className="flex justify-between container mx-auto">
+        <div className="flex justify-between container mx-auto relative">
         <div>
         <Loginimage/>
         </div>

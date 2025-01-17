@@ -1,8 +1,8 @@
-function Loader(){
-    return(
-        <div className="h-[100vh] w-[100vw]  ">
-<img src="src/assets/images/loader.gif" alt="loader" />
-        </div>
-    )
+function Loader() {
+  return (
+    <div className="h-screen flex justify-center items-center  w-[100vw]  fixed top-0 left-0">
+      <img src="src/assets/images/loader.gif" alt="loader" />
+    </div>
+  );
 }
-export default Loader
+export default Loader;

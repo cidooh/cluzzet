@@ -1,10 +1,21 @@
 import React, {useState} from "react"
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import {auth} from "../firebase"
+import Loader from "./Loader";
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
 
 function Logincontent() {
 
   const [loginData, setLoginData] = useState({})
 
   const [error, setError] = useState({})
+
+  const [isLoader, setIsLoader] = useState(false)
+
+  const navigate=useNavigate()
+
+  const provider = new GoogleAuthProvider()
 
   function handleChange(e) {
     setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -16,16 +27,39 @@ function Logincontent() {
   !loginData.email || loginData.email === ""
   ? (errors.email = true)
   : (errors.email= false);
-  !loginData.firstName || loginData.password === ""
+  !loginData.password || loginData.password === ""
   ? (errors.password = true)
   : (errors.password = false);
 
+
+ if(!errors.email && errors.password){
+ 
+  setIsLoader(true)
+
+signInWithEmailAndPassword(auth, loginData.email, loginData.password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    if (user){
+      navigate("/")
+      setIsLoader(false)
+       
+    }
+    console.log(user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+ 
   setError(errors);
     console.log(errors);
+  }
  }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col relative">
       <div>
         <h2 className="text-4xl font-bold p-10">Login to your Account</h2>
         {error.email || error.password ? (<p className="text-red-500 text-center">Please fill all the fields</p>) : (<p> </p>)}
@@ -77,6 +111,7 @@ function Logincontent() {
         Dont Have an Account Yet?
         <span className="text-[#45C9A1]"> Sign Up Free</span>
       </div>
+   {isLoader && <Loader/>}
     </div>
   );
 }
